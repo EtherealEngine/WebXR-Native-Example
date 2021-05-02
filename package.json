@@ -1,10 +1,10 @@
 {
-  "name": "@xrengine/native-plugin-example",
+  "name": "webxr-native-example",
   "version": "0.2.18",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/xrengine/xrengine.git"
+    "url": "git://github.com/XRFoundation/webxr-native-example.git"
   },
   "engines": {
     "yarn": ">= 0.18.0"
@@ -32,7 +32,7 @@
     "@capacitor/android": "2.4.7",
     "@capacitor/ios": "2.4.7",
     "@capacitor/cli": "2.4.7",
-    "@xrengine/native-plugin-xr": "^0.2.15",
+    "webxr-native": "^0.2.15",
     "react": "17.0.2"
   },
   "devDependencies": {
@@ -42,5 +42,5 @@
     "eslint": "7.25.0",
     "typescript": "4.2.4"
   },
-  "license": "ISC"
+  "license": "MIT"
 }
