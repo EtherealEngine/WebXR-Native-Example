@@ -1,5 +1,5 @@
 import { Capacitor, Plugins } from '@capacitor/core';
-import "@xrengine/native-plugin-xr/src/index.ts";
+import "webxr-native";
 import React, { useEffect, useState } from 'react';
 import {
     AxesHelper,
@@ -56,7 +56,7 @@ export const IndexPage = (): any => {
         xz: null,
         xy: null,
         zy: null
-    }
+    };
 
     const raf = () => {
 
@@ -172,7 +172,8 @@ export const IndexPage = (): any => {
                 setInitializationResponse(response.status);
             });
 
-            Plugins.XRPlugin.addListener('poseDataReceived', (data: any) => {
+            // @ts-ignore
+            XRPlugin.addListener('poseDataReceived', (data: any) => {
 
                 const {
                     cameraPositionX,
@@ -244,7 +245,8 @@ export const IndexPage = (): any => {
 
             });
 
-            Plugins.XRPlugin.addListener('cameraIntrinsicsReceived', (data: any) => {
+            // @ts-ignore
+            XRPlugin.addListener('cameraIntrinsicsReceived', (data: any) => {
 
                 setCameraIntrinsicsState(JSON.stringify({
                     fX: data.fX,
@@ -274,6 +276,9 @@ export const IndexPage = (): any => {
     const toggleRecording = () => {
         if (recordingState === RecordingStates.OFF) {
             setRecordingState(RecordingStates.ON);
+
+            //TODO: check why there are errors
+            // @ts-ignore
             Plugins.XRPlugin.startRecording({
                 isAudio: true,
                 width: 500,
@@ -287,7 +292,10 @@ export const IndexPage = (): any => {
         }
         else if (recordingState === RecordingStates.ON) {
             setRecordingState(RecordingStates.OFF);
+
+            // @ts-ignore
             Plugins.XRPlugin.stopRecording().
+                // @ts-ignore
                 then(({ result, filePath }) => {
                     console.log("END RECORDING, result IS", result);
                     console.log("filePath IS", filePath);
@@ -302,15 +310,18 @@ export const IndexPage = (): any => {
     };
 
     const playVideo = () => {
+        // @ts-ignore
         Plugins.XRPlugin.playVideo();
     };
 
     const pauseVideo = () => {
+        // @ts-ignore
         Plugins.XRPlugin.pauseVideo();
     };
 
 
     const clearAnchors = () => {
+        // @ts-ignore
         Plugins.XRPlugin.clearAnchors();
     };
 
