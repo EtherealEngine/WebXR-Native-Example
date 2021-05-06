@@ -1,21 +1,22 @@
 import fs from 'fs';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
-    const env = loadEnv('', process.cwd() + '../../');
-    process.env = {
-        ...process.env,
-        ...env,
-    };
+    const pathCertCert = './certs/cert.pem';
+    const pathCertKey = './certs/key.pem';
+    let server;
+    if (fs.existsSync(pathCertKey)) {
+        server = {
+            https: {
+                key: fs.readFileSync(pathCertKey),
+                cert: fs.readFileSync(pathCertCert)
+            }
+        }
+    }
 
     return {
         plugins: [],
-        server: {
-            https: {
-                key: fs.readFileSync('../../certs/key.pem'),
-                cert: fs.readFileSync('../../certs/cert.pem')
-            }
-        },
+        server,
         resolve: {
             alias: {
                 '@material-ui/icons': '@material-ui/icons/esm',
