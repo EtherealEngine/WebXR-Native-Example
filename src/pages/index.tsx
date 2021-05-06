@@ -1,6 +1,8 @@
 import { Capacitor, Plugins } from '@capacitor/core';
 import "webxr-native";
-import React, { useEffect, useState } from 'react';
+//import Player from "@xr3ngine/volumetric/src/Player";
+import Player from "../volumetric/src/Player";
+import React, { useEffect, useRef, useState } from 'react';
 import {
     AxesHelper,
     BoxGeometry, CameraHelper, Color,
@@ -9,7 +11,7 @@ import {
     MeshBasicMaterial, OrthographicCamera,
     PerspectiveCamera,
     Quaternion,
-    Scene,
+    Scene, sRGBEncoding,
     Vector3,
     WebGLRenderer
 } from 'three';
@@ -25,8 +27,8 @@ enum RecordingStates {
     ENDING = "ending"
 }
 
-const meshFilePath = typeof location !== 'undefined' ? location.origin + "/volumetric/liam.drcs" : "";
-const videoFilePath = typeof location !== 'undefined' ? location.origin + "/volumetric/liam.mp4" : "";
+const meshFilePath = typeof location !== 'undefined' ? location.origin + "/volumetric/liamlow.drcs" : "";
+const videoFilePath = typeof location !== 'undefined' ? location.origin + "/volumetric/liam_low.mp4" : "";
 const PI2 = Math.PI * 2;
 
 const correctionQuaternionZ = new Quaternion().setFromAxisAngle(new Vector3(0,0,1), Math.PI/2);
@@ -41,6 +43,7 @@ export const IndexPage = (): any => {
     const [anchorPoseState, setAnchorPoseState] = useState("");
     const [intrinsicsState, setCameraIntrinsicsState] = useState("");
     const [savedFilePath, setSavedFilePath] = useState("");
+    const playerRef = useRef<Player>(null);
 
     const [recordingState, setRecordingState] = useState(RecordingStates.OFF);
     let renderer: WebGLRenderer, scene: Scene, camera: PerspectiveCamera;
@@ -59,38 +62,38 @@ export const IndexPage = (): any => {
     };
 
     const raf = () => {
-
-        renderer.render(scene, camera);
-
-        if (_DEBUG) {
-            const clearColor = new Color();
-            renderer.getClearColor(clearColor);
-            const clearAlpha = renderer.getClearAlpha();
-
-            debugCamera.userCameraHelper.visible = true;
-
-            renderer.setScissorTest(true);
-            renderer.setClearColor(0xa0a0a0, 1);
-
-            renderer.setViewport(10, 10 * 2 + DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
-            renderer.setScissor(10, 10 * 2 + DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
-            renderer.render(scene, debugCamera.overview);
-
-            [debugCamera.xz, debugCamera.xy, debugCamera.zy].forEach((cam, index) => {
-                const left = 10 + (DEBUG_MINI_VIEWPORT_SIZE + 10) * index;
-                renderer.setViewport(left, 10, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
-                renderer.setScissor(left, 10, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
-                renderer.render(scene, cam);
-            });
-
-            // reset changes
-            debugCamera.userCameraHelper.visible = false;
-            renderer.setClearColor(clearColor, clearAlpha);
-            renderer.setScissorTest(false);
-            renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
-        }
-
         requestAnimationFrame(raf);
+        playerRef.current?.handleRender(() => {
+            renderer.render(scene, camera);
+
+            if (_DEBUG) {
+                const clearColor = new Color();
+                renderer.getClearColor(clearColor);
+                const clearAlpha = renderer.getClearAlpha();
+
+                debugCamera.userCameraHelper.visible = true;
+
+                renderer.setScissorTest(true);
+                renderer.setClearColor(0xa0a0a0, 1);
+
+                renderer.setViewport(10, 10 * 2 + DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
+                renderer.setScissor(10, 10 * 2 + DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
+                renderer.render(scene, debugCamera.overview);
+
+                [debugCamera.xz, debugCamera.xy, debugCamera.zy].forEach((cam, index) => {
+                    const left = 10 + (DEBUG_MINI_VIEWPORT_SIZE + 10) * index;
+                    renderer.setViewport(left, 10, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
+                    renderer.setScissor(left, 10, DEBUG_MINI_VIEWPORT_SIZE, DEBUG_MINI_VIEWPORT_SIZE);
+                    renderer.render(scene, cam);
+                });
+
+                // reset changes
+                debugCamera.userCameraHelper.visible = false;
+                renderer.setClearColor(clearColor, clearAlpha);
+                renderer.setScissorTest(false);
+                renderer.setViewport(0, 0, window.innerWidth, window.innerHeight);
+            }
+        });
     };
     useEffect(() => {
         (async function () {
@@ -139,6 +142,7 @@ export const IndexPage = (): any => {
             }
             scene.background = null;
             renderer = new WebGLRenderer({ alpha: true });
+            renderer.outputEncoding = sRGBEncoding;
             renderer.setSize(window.innerWidth, window.innerHeight);
             document.body.appendChild(renderer.domElement);
             renderer.domElement.style.position = "fixed";
@@ -163,6 +167,25 @@ export const IndexPage = (): any => {
             scene.add(new AxesHelper(2));
             const gh = new GridHelper(2);
             scene.add(gh);
+
+            if (!playerRef.current) { // setup player if not exists
+                playerRef.current = new Player({
+                    scene,
+                    renderer,
+                    scale: 0.01,
+                    meshFilePath: meshFilePath,
+                    videoFilePath: videoFilePath,
+                    onMeshBuffering: (progress) => {
+                        console.warn('BUFFERING!!', progress);
+                        // setBufferingProgress(Math.round(progress * 100));
+                        // setIsBuffering(true);
+                    },
+                    onFrameShow: () => {
+                        // setIsBuffering(false);
+                    }
+                    // video: document.getElementById("video")
+                });
+            }
 
             requestAnimationFrame(raf);
 
@@ -295,34 +318,33 @@ export const IndexPage = (): any => {
 
             // @ts-ignore
             Plugins.XRPlugin.stopRecording().
-                // @ts-ignore
-                then(({ result, filePath }) => {
-                    console.log("END RECORDING, result IS", result);
-                    console.log("filePath IS", filePath);
+            // @ts-ignore
+            then(({ result, filePath }) => {
+                console.log("END RECORDING, result IS", result);
+                console.log("filePath IS", filePath);
 
-                    setSavedFilePath("file://" + filePath);
-                });
+                setSavedFilePath("file://" + filePath);
+            });
         }
     };
 
     const handleTap = () => {
         Plugins.XRPlugin.handleTap();
+        playerRef.current?.play();
     };
 
     const playVideo = () => {
-        // @ts-ignore
-        Plugins.XRPlugin.playVideo();
+        Plugins.XRPlugin.playVideo({});
     };
 
     const pauseVideo = () => {
-        // @ts-ignore
-        Plugins.XRPlugin.pauseVideo();
+        Plugins.XRPlugin.pauseVideo({});
     };
 
 
     const clearAnchors = () => {
         // @ts-ignore
-        Plugins.XRPlugin.clearAnchors();
+        Plugins.XRPlugin.clearAnchors({});
     };
 
     // useEffect(() => {
@@ -330,15 +352,15 @@ export const IndexPage = (): any => {
     // }, [initializationResponse]);
 
     return (<>
-        <div className="plugintest">
-            <div className="plugintestReadout">
-                <p>IR:{initializationResponse}</p>
-                <p>CSS:{cameraStartedState}</p>
-                <p>IS:{intrinsicsState}</p>
-                <p>CPS:{cameraPoseState}</p>
-                <p>APS:{anchorPoseState}</p>
-            </div>
-        </div>
+          <div className="plugintest">
+              <div className="plugintestReadout">
+                  <p>IR:{initializationResponse}</p>
+                  <p>CSS:{cameraStartedState}</p>
+                  <p>IS:{intrinsicsState}</p>
+                  <p>CPS:{cameraPoseState}</p>
+                  <p>APS:{anchorPoseState}</p>
+              </div>
+          </div>
 
           <div className="plugintestControls">
               <button type="button" style={{ padding: "1em" }} onClick={() => toggleRecording()}>{recordingState === RecordingStates.OFF ? "Record" : "Stop Recording"}</button>
@@ -347,12 +369,12 @@ export const IndexPage = (): any => {
               <button type="button" style={{ padding: "1em" }} onClick={() => playVideo()}>playVideo</button>
               <button type="button" style={{ padding: "1em" }} onClick={() => pauseVideo()}>pauseVideo</button>
           </div>
-        {/* <VolumetricPlayer
+          {/* <VolumetricPlayer
                         meshFilePath={meshFilePath}
                         videoFilePath={videoFilePath}
                         cameraVerticalOffset={0.5}
                     /> */}
-    </>
+      </>
     );
 };
 
