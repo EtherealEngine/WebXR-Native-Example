@@ -9,5 +9,8 @@
       "launchShowDuration": 0
     }
   },
+  "ios": {
+    "minVersion": 12
+  },
   "cordova": {}
 }
