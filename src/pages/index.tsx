@@ -183,6 +183,7 @@ export const IndexPage = (): any => {
                     cameraRotationY,
                     cameraRotationZ,
                     cameraRotationW,
+                    cameraProjectionMatrix
                 } = data;
 
                 // TODO:
@@ -203,7 +204,12 @@ export const IndexPage = (): any => {
                   .multiply(correctionQuaternionZ);
                 camera.position.set(cameraPositionX, cameraPositionY, cameraPositionZ);
 
-                camera.updateProjectionMatrix();
+                if (cameraProjectionMatrix) {
+                    camera.projectionMatrix.fromArray(cameraProjectionMatrix)
+                    camera.projectionMatrixInverse.copy(camera.projectionMatrix).invert()
+                } else {
+                    camera.updateProjectionMatrix()
+                } 
 
                 if (_DEBUG) {// sync cams
                     debugCamera.overview.lookAt(camera.position);
