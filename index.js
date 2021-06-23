@@ -1,4 +1,4 @@
-const http = require('http');
+/*const http = require('http');
 const { parse } = require('url');
 const next = require('next');
 const fs = require('fs');
@@ -19,4 +19,14 @@ app.prepare().then(() => {
       if (err) throw err;
       console.log('Client ready on http://127.0.0.1:3000')
     })
-});
+});*/
+import {UnityAR} from('cordova-plugin-unityar');
+alert('meeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
+//import {UnityAR} from ('cordova-plugin-unityar')
+
+UnityAR.launchWithMessage("Manager","GetMessageFromCordova","Cordova Msg",
+(data)=>{
+     console.log("success ",data);
+ },(err)=>{
+     console.log("error ",err);
+});;

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { defineConfig } from 'vite';
 
+
 export default defineConfig(() => {
     const pathCertCert = './certs/cert.pem';
     const pathCertKey = './certs/key.pem';
@@ -13,6 +14,8 @@ export default defineConfig(() => {
             }
         }
     }
+
+    
 
     return {
         plugins: [],
@@ -34,9 +37,14 @@ export default defineConfig(() => {
             assetsDir: 'assets',
             rollupOptions: {
                 output: {
-                    // dir: 'dist',
-                    format: 'es',
+                    manualChunks(id) {
+                        if (id.includes('node_modules')) {
+                            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                        }        
+                    }                     
                 },
+              
+               
             }
         }
     }

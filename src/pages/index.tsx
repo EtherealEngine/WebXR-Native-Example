@@ -14,7 +14,7 @@ import {
     WebGLRenderer
 } from 'three';
 
-
+import {UnityAR} from 'cordova-plugin-unityar';
 
 const { isNative } = Capacitor;
 
@@ -312,7 +312,8 @@ export const IndexPage = (): any => {
     };
 
     const handleTap = () => {
-        Plugins.XRPlugin.handleTap();
+       console.log("tap here");
+        // Plugins.XRPlugin.handleTap();
     };
 
     const playVideo = () => {
