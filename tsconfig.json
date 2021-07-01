@@ -21,10 +21,11 @@
     "isolatedModules": true,
     "experimentalDecorators": true,
     "outDir": "./lib"
+
   },
   "exclude": [
-    "node_modules",
+    "node_modules", 
     "tests/**"
   ],
-  "include": [ "./**/*.ts", "./**/*.tsx" ]
+  "include": [ "./**/*.ts", "./**/*.tsx" ],         
 }
