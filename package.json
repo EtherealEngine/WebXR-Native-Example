@@ -23,7 +23,7 @@
     "test": "echo \"TODO: Add Testing to Client\" && exit 0"
   },
   "resolutions": {
-    "@types/react": "17.0.4",
+    "@types/react": "17.0.13",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "react": "17.0.2"
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.14.6",
-    "@types/react": "17.0.4",
+    "@types/react": "17.0.13",
     "@types/three": "0.127.1",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
