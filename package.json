@@ -46,7 +46,7 @@
     "webxr-native": "^0.2.15"
   },
   "devDependencies": {
-    "@babel/core": "7.14.0",
+    "@babel/core": "7.14.6",
     "@types/react": "17.0.4",
     "@types/three": "0.127.1",
     "@typescript-eslint/eslint-plugin": "4.22.0",
