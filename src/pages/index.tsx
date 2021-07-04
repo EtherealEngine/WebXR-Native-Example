@@ -1,7 +1,7 @@
 import { Capacitor,Plugins } from '@capacitor/core';
 import "webxr-native";
 import React, { useEffect, useState } from 'react';
-import 'cordova-plugin-unityar';
+import 'capacitor-plugin-unityar';
 const { UnityAR } = Plugins;
 
 
@@ -14,15 +14,14 @@ export const IndexPage = (): any => {
 
   
 
-    const handleTap = async () => {        
-        if(UnityAR){
-            UnityAR.launchWithMessage("Manager","GetMessageFromCordova","Cordova Msg",
-                (data)=>{
-                    console.log("success ",data);
-                },(err)=>{
-                    console.log("error ",err);
-            });;
-        }
+    const handleTap =() => {   
+        UnityAR.execute("launchUnity");
+        /*UnityAR.launchUnity().then((result) => {
+            console.log(result);
+        }).catch((err) => {
+            console.log(err);
+            console.log('Sorry nav, not going to happen');
+        });*/
     };
 
    
