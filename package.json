@@ -33,10 +33,10 @@
     "react": "^17.0.0"
   },
   "dependencies": {
-    "@capacitor/android": "2.4.7",
-    "@capacitor/cli": "2.4.7",
-    "@capacitor/core": "2.4.7",
-    "@capacitor/ios": "2.4.7",
+    "@capacitor/android": "3.0.2",
+    "@capacitor/cli": "3.0.2",
+    "@capacitor/core": "3.0.2",
+    "@capacitor/ios": "3.0.2",
     "@typescript-eslint/eslint-plugin": "4.22.0",
     "@typescript-eslint/parser": "4.22.0",
     "capacitor-plugin-unityar": "file:capacitor-plugin-unityar",
