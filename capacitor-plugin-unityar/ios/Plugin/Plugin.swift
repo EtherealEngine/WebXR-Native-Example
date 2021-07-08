@@ -1,6 +1,7 @@
 import Foundation
 import Capacitor
 
+
 /**
  * Please read the Capacitor iOS Plugin Development Guide
  * here: https://capacitorjs.com/docs/plugins/ios
@@ -8,10 +9,10 @@ import Capacitor
 @objc(UnityAR)
 public class UnityAR: CAPPlugin {
 
-    @objc func echo(_ call: CAPPluginCall) {
+    @objc func execute(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""
-        call.success([
-            "value": value
-        ])
+        NotificationCenter.default.post(name: NSNotification.Name("launchUnity"), object: value)
+        call.resolve()
+
     }
 }
