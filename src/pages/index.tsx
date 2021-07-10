@@ -15,7 +15,11 @@ export const IndexPage = (): any => {
   
 
     const handleTap =() => {   
-        UnityAR.execute("launchUnity");
+        try{
+        UnityAR.execute({"value":"launchUnity"});
+        }catch(e){
+            console.log(e);
+        }
         /*UnityAR.launchUnity().then((result) => {
             console.log(result);
         }).catch((err) => {
@@ -29,7 +33,7 @@ export const IndexPage = (): any => {
       
           <div className="plugintestControls">
              
-              <button type="button" style={{ padding: "1em" }} onClick={() => handleTap()}>Place AR</button>
+              <button type="button" style={{ padding: "1em",marginTop:"5em" }} onClick={() => handleTap()}>Place AR</button>
             
           </div>
         {/* <VolumetricPlayer
