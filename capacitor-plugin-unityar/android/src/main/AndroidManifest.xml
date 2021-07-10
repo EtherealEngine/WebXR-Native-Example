@@ -1,5 +1,8 @@
 
   <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.xrengine.capacitorpluginunityar.capacitorpluginunityar">
+      package="com.xrengine.capacitorpluginunityar">
+
+      <application>
+      </application>
   </manifest>
   

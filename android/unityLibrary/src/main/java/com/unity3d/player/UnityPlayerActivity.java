@@ -48,8 +48,9 @@ public class UnityPlayerActivity extends Activity implements IUnityPlayerLifecyc
         moveTaskToBack(true);
     }
 
-    // Callback before Unity player process is killed
+    // When Unity player quited kill process
     @Override public void onUnityPlayerQuitted() {
+        Process.killProcess(Process.myPid());
     }
 
     @Override protected void onNewIntent(Intent intent)

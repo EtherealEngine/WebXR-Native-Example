@@ -8,7 +8,6 @@ import Capacitor
  */
 @objc(UnityAR)
 public class UnityAR: CAPPlugin {
-
     @objc func execute(_ call: CAPPluginCall) {
         let value = call.getString("value") ?? ""
         NotificationCenter.default.post(name: NSNotification.Name("launchUnity"), object: value)

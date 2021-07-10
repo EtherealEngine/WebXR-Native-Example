@@ -1,7 +1,6 @@
 package com.company.product;
 import android.os.Bundle;
 import android.widget.FrameLayout;
-import android.util.Log;
 
 import com.unity3d.player.UnityPlayerActivity;
 

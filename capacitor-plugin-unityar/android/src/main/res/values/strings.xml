@@ -1,3 +1,5 @@
 <resources>
     <string name="my_string">Just a simple string</string>
+    <!--For Unity Lib-->
+    <string name="game_view_content_description">Game view</string>
 </resources>

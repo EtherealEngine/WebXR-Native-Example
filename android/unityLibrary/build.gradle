@@ -5,18 +5,11 @@ apply plugin: 'com.android.library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation(name: 'ARPresto', ext:'aar')
-    implementation(name: 'NatCorder', ext:'aar')
-    implementation(name: 'NatShare', ext:'aar')
-    implementation(name: 'UnityARCore', ext:'aar')
-    implementation(name: 'arcore_client', ext:'aar')
-    implementation(name: 'core-1.0.0-rc02', ext:'aar')
-    implementation(name: 'unityandroidpermissions', ext:'aar')
 }
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.3'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -24,13 +17,13 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 28
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 30
         ndk {
-            abiFilters 'armeabi-v7a'
+            abiFilters 'armeabi-v7a', 'x86'
         }
         versionCode 1
-        versionName '0.5'
+        versionName '0.1'
         consumerProguardFiles 'proguard-unity.txt'
     }
 
@@ -38,15 +31,12 @@ android {
         abortOnError false
     }
 
-    /*aaptOptions {
-        noCompress = ['.ress', '.resource', '.obb'] + unityStreamingAssets.tokenize(', ')
+    aaptOptions {
         ignoreAssetsPattern = "!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~"
-    }*/
+    }
 
     packagingOptions {
         doNotStrip '*/armeabi-v7a/*.so'
     }
 }
-
-
 

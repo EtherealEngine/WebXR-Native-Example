@@ -9,8 +9,8 @@ android {
 
 apply from: "../capacitor-cordova-android-plugins/cordova.variables.gradle"
 dependencies {
-    implementation project(':webxr-native')
-
+    implementation project(':capacitor-plugin-unityar')
+    implementation project(':unityLibrary')
 }
 
 

@@ -1,5 +1,9 @@
 [
 	{
+		"pkg": "capacitor-plugin-unityar",
+		"classpath": "com.xrengine.capacitorpluginunityar.UnityAR"
+	},
+	{
 		"pkg": "webxr-native",
 		"classpath": "com.xrengine.xr.CameraPreview"
 	}

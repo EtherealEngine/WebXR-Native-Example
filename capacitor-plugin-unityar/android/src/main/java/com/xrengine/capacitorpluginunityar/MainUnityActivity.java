@@ -1,38 +1,23 @@
-/**Alan Jose */
-/**17/03/2021 */
+
+
 package com.xrengine.capacitorpluginunityar;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.company.product.OverrideUnityActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-public class  MainUnityActivity extends OverrideUnityActivity{
-
-    private static String returnMessage = null;
-    public static MainUnityActivity mainUnityInstance = null;
+public class MainUnityActivity extends OverrideUnityActivity {
+    // Setup activity layout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainUnityInstance = this;
-        //TODO: add later the below line based on arguments from Cordova
-        //addUIToUnityWindow();
-        if(getIntent().hasExtra("messageJson")){
-            try {
-                JSONObject messageArgs = new JSONObject(getIntent().getStringExtra("messageJson"));
-                sendMessage(messageArgs);
-            }
-        catch (Exception e){
-                e.printStackTrace();
-            }
-        }
+        addControlsToUnityFrame();
         Intent intent = getIntent();
         handleIntent(intent);
     }
@@ -44,11 +29,6 @@ public class  MainUnityActivity extends OverrideUnityActivity{
         setIntent(intent);
     }
 
-
-    protected void showMainActivity(String color){
-        return;
-    }
-
     void handleIntent(Intent intent) {
         if(intent == null || intent.getExtras() == null) return;
 
@@ -58,62 +38,76 @@ public class  MainUnityActivity extends OverrideUnityActivity{
             }
     }
 
-    void addUIToUnityWindow(){
-        FrameLayout frameLayout = mUnityPlayer;
-        {
-            Button closeButton = new Button(this);
-            closeButton.setText("CLOSE");
-            closeButton.setX(10);
-            closeButton.setY(20);
+    @Override
+    protected void showMainActivity(String setToColor) {
+        Log.e("SetColor",setToColor);
+/*        Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.putExtra("setColor", setToColor);
+        startActivity(intent);*/
+    }
 
-            closeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
+    @Override public void onUnityPlayerUnloaded() {
+        showMainActivity("");
+    }
+
+    public void addControlsToUnityFrame() {
+        FrameLayout layout = mUnityPlayer;
+        {
+            Button myButton = new Button(this);
+            myButton.setText("Show Main");
+            myButton.setX(10);
+            myButton.setY(500);
+
+            myButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    if(returnMessage!=null){
-                        Intent intent = new Intent();
-                        intent.putExtra("CORDOVA_MSG",returnMessage);
-                        setResult(Activity.RESULT_OK,intent);
-                    }
+                    showMainActivity("");
+                }
+            });
+            layout.addView(myButton, 300, 200);
+        }
+
+        {
+            Button myButton = new Button(this);
+            myButton.setText("Send Msg");
+            myButton.setX(320);
+            myButton.setY(500);
+            myButton.setOnClickListener( new View.OnClickListener() {
+                public void onClick(View v) {
+                    mUnityPlayer.UnitySendMessage("Cube", "ChangeColor", "yellow");
+                }
+            });
+            layout.addView(myButton, 300, 200);
+        }
+
+        {
+            Button myButton = new Button(this);
+            myButton.setText("Unload");
+            myButton.setX(630);
+            myButton.setY(500);
+
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    mUnityPlayer.unload();
+                }
+            });
+            layout.addView(myButton, 300, 200);
+        }
+
+        {
+            Button myButton = new Button(this);
+            myButton.setText("Finish");
+            myButton.setX(630);
+            myButton.setY(800);
+
+            myButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
                     finish();
                 }
             });
-            frameLayout.addView(closeButton,300,200);
+            layout.addView(myButton, 300, 200);
         }
-
-    }
-
-    void sendMessage(JSONObject messageArgs) {
-        if(mUnityPlayer!=null){
-            try {
-                mUnityPlayer.UnitySendMessage(messageArgs.getString("gameobject"),messageArgs.getString("method"),messageArgs.getString("argument"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private void quitPlayer(String feedbackMessage)
-    {
-       sendResult(feedbackMessage);
-       finish();
-    }
-
-    private void sendResult(String resultToSend)
-    {
-        if(resultToSend!=null){
-            Intent intent = new Intent();
-            intent.putExtra("CORDOVA_MSG",resultToSend);
-            setResult(Activity.RESULT_OK,intent);
-        }
-    }
-
-    public static void sendMessagetoCordova(String data)
-    {
-        mainUnityInstance.sendResult(data);
-    }
-
-    public static void quitUnityPlayer(String feedbackString)
-    {
-        mainUnityInstance.quitPlayer(feedbackString);
     }
 }
+
+

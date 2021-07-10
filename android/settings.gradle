@@ -2,5 +2,5 @@ include ':app'
 include ':capacitor-cordova-android-plugins'
 project(':capacitor-cordova-android-plugins').projectDir = new File('./capacitor-cordova-android-plugins/')
 include ':unityLibrary'
-project(':unityLibrary').projectDir = new File('./unityLibrary/')
+project(':unityLibrary').projectDir = new File('./unityLibrary')
 apply from: 'capacitor.settings.gradle'

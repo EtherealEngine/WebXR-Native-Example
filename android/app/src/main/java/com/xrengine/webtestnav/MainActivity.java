@@ -1,14 +1,17 @@
 package com.xrengine.webtestnav;
 
 import com.getcapacitor.BridgeActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.getcapacitor.Plugin;
+import com.xrengine.capacitorpluginunityar.MainUnityActivity;
+import com.xrengine.capacitorpluginunityar.UnityAR;
 
 import java.util.ArrayList;
-import cordova.plugin.unityar;
 
 public class MainActivity extends BridgeActivity {
 
