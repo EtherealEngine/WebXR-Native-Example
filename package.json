@@ -40,7 +40,7 @@
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
     "capacitor-plugin-unityar": "file:capacitor-plugin-unityar",
-    "react": "^17.0.0",
+    "react": "17.0.2",
     "react-dom": "17.0.2",
     "three": "0.130.1",
     "webxr-native": "0.3.0"
@@ -54,7 +54,7 @@
     "cross-env": "7.0.3",
     "eslint": "7.30.0",
     "eslint-plugin-react": "7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-react-hooks": "4.2.0",
     "typescript": "4.3.5",
     "vite": "2.4.1"
   },
