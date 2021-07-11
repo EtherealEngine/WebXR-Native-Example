@@ -1,7 +1,5 @@
 import { Capacitor,Plugins } from '@capacitor/core';
-import "webxr-native";
 import React, { useEffect, useState } from 'react';
-import 'capacitor-plugin-unityar';
 const { UnityAR } = Plugins;
 
 
@@ -15,7 +13,7 @@ export const IndexPage = (): any => {
   
 
     const handleTap =() => {   
-        UnityAR.execute("launchUnity");
+        //UnityAR.execute("launchUnity");
         /*UnityAR.launchUnity().then((result) => {
             console.log(result);
         }).catch((err) => {

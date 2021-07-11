@@ -1,6 +1,16 @@
 {
-  "appId": "com.xrengine.webtestnav",
-  "appName": "WebTest",
+  "appId": "com.xrengine.example",
+  "appName": "Example",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
   "webDir": "www",
-  "bundledWebRuntime": false
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "ios": {
+    "minVersion": 12
+  },
+  "cordova": {}
 }
