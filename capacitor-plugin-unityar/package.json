@@ -17,9 +17,9 @@
   "author": "nav",
   "license": "MIT",
   "devDependencies": {
-    "@capacitor/android": "3.4.1",
-    "@capacitor/core": "3.4.1",
-    "@capacitor/ios": "3.4.1",
+    "@capacitor/android": "3.4.3",
+    "@capacitor/core": "3.4.3",
+    "@capacitor/ios": "3.4.3",
     "@ionic/prettier-config": "2.0.0",
     "@ionic/swiftlint-config": "1.1.2",
     "@rollup/plugin-node-resolve": "13.1.3",
