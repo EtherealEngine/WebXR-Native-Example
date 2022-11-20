@@ -42,13 +42,13 @@
     "capacitor-plugin-unityar": "file:capacitor-plugin-unityar",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "three": "0.139.2",
+    "three": "0.146.0",
     "webxr-native": "0.3.0"
   },
   "devDependencies": {
     "@babel/core": "7.17.9",
     "@types/react": "17.0.43",
-    "@types/three": "0.139.0",
+    "@types/three": "0.146.0",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
     "cross-env": "7.0.3",
