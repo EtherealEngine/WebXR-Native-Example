@@ -26,7 +26,7 @@
     "@types/react": "17.0.43",
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
-    "react": "18.0.0"
+    "react": "18.2.0"
   },
   "peerDependencies": {
     "@types/react": "^17.0.0",
@@ -40,8 +40,8 @@
     "@typescript-eslint/eslint-plugin": "5.17.0",
     "@typescript-eslint/parser": "5.17.0",
     "capacitor-plugin-unityar": "file:capacitor-plugin-unityar",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "three": "0.139.2",
     "webxr-native": "0.3.0"
   },
@@ -54,7 +54,7 @@
     "cross-env": "7.0.3",
     "eslint": "8.14.0",
     "eslint-plugin-react": "7.29.4",
-    "eslint-plugin-react-hooks": "4.4.0",
+    "eslint-plugin-react-hooks": "4.6.0",
     "typescript": "4.6.3",
     "vite": "2.9.6"
   },
