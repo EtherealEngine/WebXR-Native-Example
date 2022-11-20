@@ -24,8 +24,8 @@
   },
   "resolutions": {
     "@types/react": "17.0.43",
-    "@typescript-eslint/eslint-plugin": "5.17.0",
-    "@typescript-eslint/parser": "5.17.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "react": "18.0.0"
   },
   "peerDependencies": {
@@ -37,8 +37,8 @@
     "@capacitor/cli": "3.5.0",
     "@capacitor/core": "3.5.0",
     "@capacitor/ios": "3.5.0",
-    "@typescript-eslint/eslint-plugin": "5.17.0",
-    "@typescript-eslint/parser": "5.17.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "capacitor-plugin-unityar": "file:capacitor-plugin-unityar",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -49,8 +49,8 @@
     "@babel/core": "7.17.9",
     "@types/react": "17.0.43",
     "@types/three": "0.139.0",
-    "@typescript-eslint/eslint-plugin": "5.17.0",
-    "@typescript-eslint/parser": "5.17.0",
+    "@typescript-eslint/eslint-plugin": "5.43.0",
+    "@typescript-eslint/parser": "5.43.0",
     "cross-env": "7.0.3",
     "eslint": "8.14.0",
     "eslint-plugin-react": "7.29.4",
